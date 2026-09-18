@@ -22,7 +22,6 @@
       --heading: #f0f6fc;
       --amber: #f5b041;
       --amber-dim: rgba(245, 176, 65, 0.12);
-      --amber-glow: rgba(245, 176, 65, 0.22);
       --term-bg: #06090d;
       --line: #182230;
     }
@@ -36,7 +35,6 @@
       --heading: #0f172a;
       --amber: #c57613;
       --amber-dim: rgba(197, 118, 19, 0.1);
-      --amber-glow: rgba(197, 118, 19, 0.18);
       --term-bg: #f1f5f9;
       --line: #cbd5e1;
     }
@@ -116,26 +114,15 @@
       text-align: left;
     }
 
-    .aperture-ring {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      margin-bottom: 20px;
-      background: radial-gradient(circle, var(--bg) 46%, transparent 48%),
-                  conic-gradient(from 0deg, #2b1704, #b8860b, #ffd700, #b8860b, #2b1704, #b8860b, #ffd700, #2b1704);
-      box-shadow: 0 0 32px var(--amber-glow);
-      border: 1px solid rgba(245, 176, 65, 0.3);
-    }
-
     .wordmark-row {
       display: inline-flex;
       align-items: baseline;
       justify-content: flex-start;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .part-bio {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 3.1rem;
+      font-size: 3.2rem;
       font-weight: 700;
       color: var(--heading);
       letter-spacing: -1px;
@@ -144,7 +131,7 @@
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-weight: 700;
-      font-size: 3.5rem;
+      font-size: 3.6rem;
       color: var(--heading);
       transform: translateY(-2px);
     }
@@ -152,13 +139,13 @@
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-weight: 700;
-      font-size: 3.5rem;
+      font-size: 3.6rem;
       color: var(--amber);
       transform: translateY(-2px);
     }
     .part-rum {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 3.1rem;
+      font-size: 3.2rem;
       font-weight: 800;
       color: var(--amber);
       letter-spacing: -1px;
@@ -167,7 +154,7 @@
     /* Official Backronym */
     .official-acronym {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 500;
       letter-spacing: 0.8px;
       text-transform: uppercase;
@@ -185,7 +172,7 @@
     }
 
     .tagline-lead {
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       color: var(--text-dim);
       line-height: 1.6;
       margin-bottom: 24px;
@@ -357,10 +344,8 @@
     <!-- Main Landscape Layout (Reflows to stack on mobile) -->
     <div class="landscape-layout">
       
-      <!-- Left Anchor Sidebar -->
+      <!-- Left Anchor Sidebar (No circular ring) -->
       <aside class="anchor-sidebar">
-        <div class="aperture-ring"></div>
-
         <div class="wordmark-row">
           <span class="part-bio">bio</span>
           <span class="part-in">in</span>
@@ -406,7 +391,7 @@
             <div id="desk-workflows" class="bench-pane active">
               <h3>Reproducible Workflow Architecture</h3>
               <p>
-                Building end-to-end sequencing pipelines that stay stable across local environments and Slurm clusters. Focused on Nextflow DSL2, containerized Singularity layers, and automated execution.
+                Building end-to-end sequencing pipelines that stay stable across local workstations and Slurm HPC clusters. Focused on Nextflow DSL2, containerized Singularity layers, and automated execution.
               </p>
               <div class="spec-stack">
                 <span class="spec-tag">Nextflow DSL2</span>
@@ -474,7 +459,7 @@
           </div>
           <div class="log-line">
             <span class="log-time">[LOUNGE]</span>
-            <span class="log-tag">COMMUNITY:</span> Discord server setup ongoing; cohort onboarding prepared.
+            <span class="log-tag">COMMUNITY:</span> Discord server setup ongoing; cohort onboarding prepared[cite: 7].
           </div>
         </div>
 
@@ -489,7 +474,7 @@
         <a href="https://souravmohanty.com" target="_blank">Sourav Sangam Mohanty</a>
       </div>
       <div>
-        <span>bioinforum.org</span> &bull; <span>GitHub Native</span>
+        <span>bioinforum.org</span> &bull; <span>GitHub Native</span>[cite: 7]
       </div>
     </footer>
 
@@ -497,7 +482,6 @@
 
   <!-- Scripts -->
   <script>
-    // Tabbed Bench Desk Switcher
     function openDesk(evt, deskId) {
       const panes = document.querySelectorAll('.bench-pane');
       panes.forEach(pane => pane.classList.remove('active'));
@@ -509,7 +493,6 @@
       evt.currentTarget.classList.add('active');
     }
 
-    // Icon-Only Day/Night Toggle Controller
     const toggleBtn = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const root = document.documentElement;
