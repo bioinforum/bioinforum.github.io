@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bioinforum | Bioinformatics Discussion Forum</title>
+  <title>bioinforum</title>
   <meta name="description" content="BIOinformatics FOrum for Research, Understanding and Methodologies" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,12 +71,13 @@
 
     /* Custom Hybrid Wordmark */
     .wordmark-container {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       display: inline-flex;
       align-items: baseline;
       justify-content: center;
     }
 
+    /* "bio" — Monospaced White */
     .part-bio {
       font-family: 'JetBrains Mono', monospace;
       font-size: 3.4rem;
@@ -85,24 +86,29 @@
       letter-spacing: -1.5px;
     }
 
+    /* "in" — Playfair Italic Serif (Off-White) */
     .part-in {
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-weight: 700;
       font-size: 3.8rem;
       color: #e6edf3;
-      padding: 0 2px;
+      padding-left: 1px;
       transform: translateY(-2px);
     }
 
+    /* "fo" — Same Playfair Italic Serif font, matching "in", but Amber */
     .part-fo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 3.4rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
       font-weight: 700;
+      font-size: 3.8rem;
       color: var(--rum-amber);
-      letter-spacing: -1.5px;
+      padding-right: 2px;
+      transform: translateY(-2px);
     }
 
+    /* "rum" — Sans Display Heavy, Amber */
     .part-rum {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 3.4rem;
@@ -205,7 +211,7 @@
 
     <!-- Official Backronym -->
     <p class="backronym">
-      <strong><span class="accent-letter">BIO</span>Informatics</strong> 
+      <strong><span class="accent-letter">BIOin</span>formatics</strong> 
       <strong><span class="accent-letter">FO</span>rum</strong> for 
       <strong><span class="accent-letter">R</span>esearch</strong>, 
       <strong><span class="accent-letter">U</span>nderstanding</strong> and 
