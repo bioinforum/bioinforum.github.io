@@ -3,90 +3,131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BIOINFORUM</title>
+  <title>Bioinforum | Bioinformatics Discussion Forum</title>
   <meta name="description" content="BIOInformatics FOrum for Research, Understanding and Methodologies" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@1,500;1,700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #000000;
+      --bg: #090d12;
+      --card-bg: #121820;
+      --border: #212c3a;
       --text-white: #f0f6fc;
       --text-muted: #8b949e;
-      --rum-yellow: #f5b041;
-      --border: #21262d;
+      --rum-amber: #f5b041;
+      --rum-glow: rgba(245, 176, 65, 0.15);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg);
       color: var(--text-white);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 32px 20px;
       text-align: center;
     }
 
     .container {
-      max-width: 640px;
+      max-width: 720px;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* Circular Iris / Radial Graphic */
-    .avatar-ring {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      margin-bottom: 32px;
-      background: radial-gradient(circle, #000 48%, transparent 50%),
-                  conic-gradient(from 0deg, #3d2208, #b8860b, #ffd700, #b8860b, #3d2208, #b8860b, #ffd700, #3d2208);
-      box-shadow: 0 0 35px rgba(245, 176, 65, 0.15);
-      border: 1px solid rgba(245, 176, 65, 0.2);
+    /* Top Platform Tag */
+    .platform-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--rum-amber);
+      background: var(--rum-glow);
+      border: 1px solid rgba(245, 176, 65, 0.3);
+      padding: 6px 14px;
+      border-radius: 4px;
+      margin-bottom: 28px;
     }
 
-    /* Wordmark: reads both "bioinfo rum" and "bio in forum" */
-    .wordmark {
-      font-size: 2.8rem;
-      letter-spacing: -0.5px;
-      font-weight: 800;
-      line-height: 1.1;
+    /* The Radial Graphic / Avatar */
+    .avatar-ring {
+      width: 124px;
+      height: 124px;
+      border-radius: 50%;
+      margin-bottom: 24px;
+      background: radial-gradient(circle, #090d12 46%, transparent 48%),
+                  conic-gradient(from 0deg, #2b1704, #b8860b, #ffd700, #b8860b, #2b1704, #b8860b, #ffd700, #2b1704);
+      box-shadow: 0 0 40px rgba(245, 176, 65, 0.18);
+      border: 1px solid rgba(245, 176, 65, 0.25);
+    }
+
+    /* Custom Hybrid Wordmark */
+    .wordmark-container {
       margin-bottom: 12px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
     }
 
     .part-bio {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 3.4rem;
+      font-weight: 700;
       color: var(--text-white);
+      letter-spacing: -1.5px;
     }
 
-    .part-info {
+    .part-in {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 3.8rem;
       color: #e6edf3;
+      padding: 0 2px;
+      transform: translateY(-2px);
+    }
+
+    .part-fo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 3.4rem;
+      font-weight: 700;
+      color: var(--rum-amber);
+      letter-spacing: -1.5px;
     }
 
     .part-rum {
-      color: var(--rum-yellow);
-      font-weight: 900;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 3.4rem;
+      font-weight: 800;
+      color: var(--rum-amber);
+      letter-spacing: -1px;
     }
 
-    /* Subtitle: The Exact Backronym */
+    /* Strategic Headline */
+    .strategic-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-white);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    /* Backronym Subtitle */
     .backronym {
       font-size: 0.95rem;
       color: var(--text-muted);
       line-height: 1.6;
-      max-width: 520px;
-      margin-bottom: 24px;
-      letter-spacing: 0.3px;
+      max-width: 580px;
+      margin-bottom: 28px;
     }
 
     .backronym strong {
@@ -95,14 +136,17 @@
     }
 
     .accent-letter {
-      color: var(--rum-yellow);
+      color: var(--rum-amber);
+      font-weight: 800;
     }
 
     /* Minimal Pill Links */
     .links {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 12px;
-      margin-top: 10px;
+      margin-top: 6px;
     }
 
     .link-pill {
@@ -110,22 +154,23 @@
       font-size: 0.85rem;
       color: var(--text-muted);
       text-decoration: none;
-      padding: 6px 14px;
+      padding: 8px 16px;
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 24px;
+      background-color: var(--card-bg);
       transition: all 0.2s ease;
     }
 
     .link-pill:hover {
-      color: var(--rum-yellow);
-      border-color: var(--rum-yellow);
+      color: var(--rum-amber);
+      border-color: var(--rum-amber);
+      background-color: rgba(245, 176, 65, 0.08);
     }
 
     footer {
-      position: absolute;
-      bottom: 24px;
-      font-size: 0.8rem;
-      color: #484f58;
+      margin-top: 48px;
+      font-size: 0.82rem;
+      color: #4b5665;
       font-family: 'JetBrains Mono', monospace;
     }
 
@@ -142,13 +187,21 @@
 <body>
 
   <div class="container">
-    <!-- Instagram-style Radial Disc / Ring -->
+    <div class="platform-tag">Bioinformatics Discussion Forum</div>
+
+    <!-- Radial Graphic -->
     <div class="avatar-ring"></div>
 
     <!-- The Dual Wordmark -->
-    <h1 class="wordmark">
-      <span class="part-bio">bio</span><span class="part-info">info</span><span class="part-rum">rum</span>
-    </h1>
+    <div class="wordmark-container">
+      <span class="part-bio">bio</span>
+      <span class="part-in">in</span>
+      <span class="part-fo">fo</span>
+      <span class="part-rum">rum</span>
+    </div>
+
+    <!-- Clear Mission Statement -->
+    <div class="strategic-title">Open Research &amp; Computational Salon</div>
 
     <!-- Official Backronym -->
     <p class="backronym">
