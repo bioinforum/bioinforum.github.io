@@ -1,238 +1,503 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>bioinforum</title>
-  <meta name="description" content="BIOinformatics FOrum for Research, Understanding and Methodologies" />
+  <title>Bioinforum | Computational Biology & Research Salon</title>
+  <meta name="description" content="BIOInformatics FOrum for Research, Understanding and Methodologies" />
+
+  <!-- Fonts: JetBrains Mono (Code/Brackets), Playfair Display (Editorial Script), Plus Jakarta Sans (UI) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@1,500;1,700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    :root {
+    /* --- CSS Variables & Dual Theme Tokens --- */
+    :root[data-theme="dark"] {
       --bg: #090d12;
-      --card-bg: #121820;
-      --border: #212c3a;
-      --text-white: #f0f6fc;
+      --nav-bg: rgba(9, 13, 18, 0.82);
+      --card-bg: #111720;
+      --card-hover: #16202c;
+      --border: #202a37;
+      --border-accent: rgba(245, 176, 65, 0.45);
+      --text: #c9d1d9;
       --text-muted: #8b949e;
-      --rum-amber: #f5b041;
-      --rum-glow: rgba(245, 176, 65, 0.15);
+      --heading: #f0f6fc;
+      --amber: #f5b041;
+      --amber-dim: rgba(245, 176, 65, 0.12);
+      --toggle-bg: #161f2b;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root[data-theme="light"] {
+      --bg: #fafbfc;
+      --nav-bg: rgba(250, 251, 252, 0.88);
+      --card-bg: #ffffff;
+      --card-hover: #f3f5f8;
+      --border: #e1e4e8;
+      --border-accent: rgba(201, 138, 34, 0.5);
+      --text: #24292f;
+      --text-muted: #57606a;
+      --heading: #0d1117;
+      --amber: #c97a1e; /* Calibrated darker amber for contrast on white */
+      --amber-dim: rgba(201, 122, 30, 0.12);
+      --toggle-bg: #eaeef2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease; }
+    html { scroll-behavior: smooth; }
 
     body {
       background-color: var(--bg);
-      color: var(--text-white);
+      color: var(--text);
       font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-      min-height: 100vh;
+      line-height: 1.65;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 32px 20px;
-      text-align: center;
+      padding: 0 20px;
     }
 
     .container {
-      max-width: 720px;
+      max-width: 860px;
       width: 100%;
+    }
+
+    /* --- Sticky Navigation Bar --- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .nav-inner {
+      max-width: 860px;
+      width: 100%;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--heading);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-brand span { color: var(--amber); }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--heading); }
+
+    /* Day / Night Theme Toggle Switch */
+    .theme-toggle-btn {
+      background: var(--toggle-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text);
+    }
+    .theme-toggle-btn:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    /* --- Hero Presentation --- */
+    .hero {
+      text-align: center;
+      padding: 70px 0 50px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
+      border-bottom: 1px solid var(--border);
     }
 
-    /* Top Platform Tag */
-    .platform-tag {
-      display: inline-block;
+    .eyebrow-badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      letter-spacing: 2.5px;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--rum-amber);
-      background: var(--rum-glow);
-      border: 1px solid rgba(245, 176, 65, 0.3);
-      padding: 6px 14px;
+      color: var(--amber);
+      background: var(--amber-dim);
+      border: 1px solid var(--border-accent);
+      padding: 5px 14px;
       border-radius: 4px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
-    /* The Radial Graphic / Avatar */
+    /* Radial Emblem */
     .avatar-ring {
-      width: 124px;
-      height: 124px;
+      width: 116px;
+      height: 116px;
       border-radius: 50%;
       margin-bottom: 24px;
-      background: radial-gradient(circle, #090d12 46%, transparent 48%),
+      background: radial-gradient(circle, var(--bg) 46%, transparent 48%),
                   conic-gradient(from 0deg, #2b1704, #b8860b, #ffd700, #b8860b, #2b1704, #b8860b, #ffd700, #2b1704);
-      box-shadow: 0 0 40px rgba(245, 176, 65, 0.18);
+      box-shadow: 0 0 36px rgba(245, 176, 65, 0.18);
       border: 1px solid rgba(245, 176, 65, 0.25);
     }
 
-    /* Custom Hybrid Wordmark */
+    /* The Signature Tri-Font Wordmark */
     .wordmark-container {
-      margin-bottom: 14px;
       display: inline-flex;
       align-items: baseline;
       justify-content: center;
+      margin-bottom: 14px;
     }
-
-    /* "bio" — Monospaced White */
     .part-bio {
       font-family: 'JetBrains Mono', monospace;
       font-size: 3.4rem;
       font-weight: 700;
-      color: var(--text-white);
-      letter-spacing: -1.5px;
+      color: var(--heading);
+      letter-spacing: -1px;
     }
-
-    /* "in" — Playfair Italic Serif (Off-White) */
     .part-in {
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-weight: 700;
       font-size: 3.8rem;
-      color: #e6edf3;
-      padding-left: 1px;
+      color: var(--heading);
       transform: translateY(-2px);
     }
-
-    /* "fo" — Same Playfair Italic Serif font, matching "in", but Amber */
     .part-fo {
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-weight: 700;
       font-size: 3.8rem;
-      color: var(--rum-amber);
-      padding-right: 2px;
+      color: var(--amber);
       transform: translateY(-2px);
     }
-
-    /* "rum" — Sans Display Heavy, Amber */
     .part-rum {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 3.4rem;
       font-weight: 800;
-      color: var(--rum-amber);
+      color: var(--amber);
       letter-spacing: -1px;
     }
 
-    /* Strategic Headline */
-    .strategic-title {
-      font-size: 1.15rem;
+    /* Official Acronym Subheading */
+    .hero-acronym {
+      font-size: 1.05rem;
       font-weight: 700;
-      color: var(--text-white);
-      letter-spacing: 1px;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      color: var(--heading);
+      margin-bottom: 12px;
+      max-width: 620px;
     }
+    .hero-acronym .accent-char { color: var(--amber); font-weight: 800; }
 
-    /* Backronym Subtitle */
-    .backronym {
-      font-size: 0.95rem;
+    .hero-tagline {
+      font-size: 0.98rem;
       color: var(--text-muted);
+      max-width: 520px;
       line-height: 1.6;
-      max-width: 580px;
       margin-bottom: 28px;
     }
 
-    .backronym strong {
-      color: var(--text-white);
-      font-weight: 600;
-    }
-
-    .accent-letter {
-      color: var(--rum-amber);
-      font-weight: 800;
-    }
-
-    /* Minimal Pill Links */
-    .links {
+    .cta-group {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
       gap: 12px;
-      margin-top: 6px;
     }
-
-    .link-pill {
+    .btn {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
-      color: var(--text-muted);
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 6px;
       text-decoration: none;
-      padding: 8px 16px;
+    }
+    .btn.primary {
+      background: var(--amber);
+      color: #090d12;
+    }
+    .btn.primary:hover { opacity: 0.9; }
+    .btn.secondary {
+      background: var(--card-bg);
+      color: var(--heading);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      background-color: var(--card-bg);
-      transition: all 0.2s ease;
     }
+    .btn.secondary:hover { border-color: var(--amber); color: var(--amber); }
 
-    .link-pill:hover {
-      color: var(--rum-amber);
-      border-color: var(--rum-amber);
-      background-color: rgba(245, 176, 65, 0.08);
+    /* --- Sections & Cards Grid --- */
+    section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
     }
-
-    footer {
-      margin-top: 48px;
-      font-size: 0.82rem;
-      color: #4b5665;
+    .section-tag {
       font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+    h2 {
+      font-size: 1.45rem;
+      color: var(--heading);
+      letter-spacing: -0.4px;
+      margin-bottom: 16px;
     }
 
-    footer a {
-      color: inherit;
-      text-decoration: none;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+      .wordmark-container { font-size: 2.2rem; }
+      .part-bio, .part-rum { font-size: 2.4rem; }
+      .part-in, .part-fo { font-size: 2.7rem; }
+      .nav-links { display: none; }
     }
 
-    footer a:hover {
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px;
+    }
+    .card:hover {
+      border-color: var(--border-accent);
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+    .card-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .card h3 {
+      font-size: 1.05rem;
+      color: var(--heading);
+      margin-bottom: 8px;
+    }
+    .card p {
+      font-size: 0.9rem;
       color: var(--text-muted);
+      line-height: 1.5;
     }
+
+    /* Taproom / Community Callout */
+    .taproom-banner {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 36px 24px;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .taproom-banner h3 {
+      font-size: 1.3rem;
+      color: var(--heading);
+      margin-bottom: 8px;
+    }
+    .taproom-banner p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 20px auto;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      width: 100%;
+    }
+    footer a { color: var(--amber); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-  
-<div class="container">
-    <!-- Top Classification Badge -->
-    <div class="platform-tag">An Open Research Salon</div>
 
-    <!-- Radial Graphic -->
-    <div class="avatar-ring"></div>
-
-    <!-- The Dual Wordmark -->
-    <div class="wordmark-container">
-      <span class="part-bio">bio</span>
-      <span class="part-in">in</span>
-      <span class="part-fo">fo</span>
-      <span class="part-rum">rum</span>
+  <!-- Sticky Navbar with Day / Night Toggle -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">bio<span>inforum</span></a>
+      <div class="nav-controls">
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#tracks">Tracks</a>
+          <a href="#taproom">The Taproom</a>
+        </div>
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">
+          <span id="themeIcon">☀️</span>
+          <span id="themeText">Day</span>
+        </button>
+      </div>
     </div>
+  </nav>
 
-    <!-- Primary Title: The Official Definition -->
-    <div class="strategic-title">
-      <span class="accent-letter">BIOin</span>formatics 
-      <span class="accent-letter">FO</span>rum for 
-      <span class="accent-letter">R</span>esearch, 
-      <span class="accent-letter">U</span>nderstanding &amp; 
-      <span class="accent-letter">M</span>ethodologies
-    </div>
+  <div class="container">
+    
+    <!-- Hero Header -->
+    <header class="hero">
+      <div class="eyebrow-badge">Open Computational Salon</div>
+      <div class="avatar-ring"></div>
 
-    <!-- Subtitle: What Actually Happens Here -->
-    <p class="backronym">
-      Translational genomics, reproducible pipelines, and unvarnished lab realities.
-    </p>
+      <!-- Signature Wordmark: bio (mono) + in (script) + fo (script amber) + rum (sans amber) -->
+      <div class="wordmark-container">
+        <span class="part-bio">bio</span>
+        <span class="part-in">in</span>
+        <span class="part-fo">fo</span>
+        <span class="part-rum">rum</span>
+      </div>
 
-    <!-- Essential Links -->
-    <div class="links">
-      <a href="https://instagram.com/bioinforum" target="_blank" class="link-pill">Instagram</a>
-      <a href="https://github.com/bioinforum" target="_blank" class="link-pill">GitHub</a>
-      <a href="https://souravmohanty.com" target="_blank" class="link-pill">Curator</a>
-    </div>
+      <!-- Primary Title: The Official Backronym -->
+      <div class="hero-acronym">
+        <span class="accent-char">BIOin</span>formatics 
+        <span class="accent-char">FO</span>rum for 
+        <span class="accent-char">R</span>esearch, 
+        <span class="accent-char">U</span>nderstanding &amp; 
+        <span class="accent-char">M</span>ethodologies
+      </div>
+
+      <p class="hero-tagline">
+        Translational genomics, pipeline architecture, and unvarnished lab realities.
+      </p>
+
+      <div class="cta-group">
+        <a href="#taproom" class="btn primary">Enter Taproom</a>
+        <a href="https://souravmohanty.com" target="_blank" class="btn secondary">Curator's Desk &rarr;</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- About / Thesis -->
+      <section id="about">
+        <div class="section-tag">// The Thesis</div>
+        <h2>Science in the Trenches</h2>
+        <p>
+          Standard academic wikis often stagnate behind institutional logins, and traditional symposiums leave little room for raw, practical problem-solving. Bioinforum was built as an independent computational salon: dissecting preprints, benchmarking pipelines, and troubleshooting sequencing workflows without bureaucratic overhead.
+        </p>
+      </section>
+
+      <!-- Active Workstreams / Track Cards -->
+      <section id="tracks">
+        <div class="section-tag">// Workbenches</div>
+        <h2>Active Tracks &amp; Toolkits</h2>
+        
+        <div class="grid">
+          <div class="card">
+            <span class="card-label">Workflow Engineering</span>
+            <h3>High-Throughput Pipelines</h3>
+            <p>Nextflow, Snakemake, containerized Docker/Singularity images, and cluster orchestration across Linux/HPC environments.</p>
+          </div>
+
+          <div class="card">
+            <span class="card-label">Biostat &amp; Omics</span>
+            <h3>Transcriptomics &amp; Biomarkers</h3>
+            <p>Single-cell quantification, bulk RNA-seq differential expression, exploratory data analysis, and multi-omics integration.</p>
+          </div>
+
+          <div class="card">
+            <span class="card-label">Journal Club</span>
+            <h3>Preprint Dissections</h3>
+            <p>Informal reviews of early methods papers, novel algorithmic models, and published open-access datasets.</p>
+          </div>
+
+          <div class="card">
+            <span class="card-label">Utilities</span>
+            <h3>Open Workbenches</h3>
+            <p>Modular Bash scripts, R toolkits, and reusable automated workflows for computational life scientists.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Community / Taproom CTA -->
+      <section id="taproom">
+        <div class="taproom-banner">
+          <div class="eyebrow-badge">Lounge &amp; Discussions</div>
+          <h3>The Taproom</h3>
+          <p>
+            Informal weekend discussions, pipeline troubleshooting, and candid scientific debate over drinks.
+          </p>
+          <a href="#" class="btn primary">Discord Opening Soon</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div>
+        &copy; 2026 <strong>Bioinforum</strong> &bull; Curated by 
+        <a href="https://souravmohanty.com" target="_blank">Sourav Sangam Mohanty</a>
+      </div>
+      <div>
+        <a href="https://instagram.com/bioinforum" target="_blank">Instagram</a> &bull; 
+        <a href="https://github.com/bioinforum" target="_blank">GitHub</a>
+      </div>
+    </footer>
+
   </div>
 
-  
-  <footer>
-    <a href="https://souravmohanty.com">souravmohanty.com</a> &bull; bioinforum.org
-  </footer>
+  <!-- Lightweight Script for Persistent Day/Night Toggle -->
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    const root = document.documentElement;
 
+    // Load saved preference or default to dark mode
+    const savedTheme = localStorage.getItem('bioinforum-theme') || 'dark';
+    applyTheme(savedTheme);
+
+    toggleBtn.addEventListener('click', () => {
+      const currentTheme = root.getAttribute('data-theme');
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+      localStorage.setItem('bioinforum-theme', nextTheme);
+    });
+
+    function applyTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      if (theme === 'light') {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Night';
+      } else {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Day';
+      }
+    }
+  </script>
 </body>
 </html>
