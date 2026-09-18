@@ -42,6 +42,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
+    
     body {
       background-color: var(--bg);
       color: var(--text);
@@ -50,24 +51,24 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 20px;
       min-height: 100vh;
+      padding: 0 24px;
     }
 
     .frame {
-      max-width: 820px;
+      max-width: 1200px;
       width: 100%;
-      padding-bottom: 70px;
+      padding-bottom: 50px;
     }
 
-    /* --- Masthead Bar --- */
+    /* --- Top Navigation Header --- */
     header.masthead {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 0;
+      padding: 20px 0;
       border-bottom: 1px solid var(--line);
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
     .masthead-id {
       font-family: 'JetBrains Mono', monospace;
@@ -78,50 +79,63 @@
     }
     .masthead-id span { color: var(--amber); font-weight: 700; }
 
-    .theme-toggle {
+    /* Minimal Icon-Only Theme Toggle */
+    .theme-toggle-icon {
       background: var(--panel-bg);
       border: 1px solid var(--panel-border);
-      border-radius: 20px;
-      cursor: pointer;
-      padding: 5px 12px;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--text);
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
     }
-    .theme-toggle:hover { border-color: var(--amber); color: var(--amber); }
+    .theme-toggle-icon:hover {
+      border-color: var(--amber);
+      transform: scale(1.05);
+    }
 
-    /* --- Focal Hero & Wordmark --- */
-    .hero-center {
-      text-align: center;
+    /* --- Landscape Dual-Column Grid Layout --- */
+    .landscape-layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Left Anchor Panel (Sticky on laptop screens) */
+    .anchor-sidebar {
+      position: sticky;
+      top: 30px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 20px 0 40px 0;
+      align-items: flex-start;
+      text-align: left;
     }
 
     .aperture-ring {
-      width: 110px;
-      height: 110px;
+      width: 96px;
+      height: 96px;
       border-radius: 50%;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       background: radial-gradient(circle, var(--bg) 46%, transparent 48%),
                   conic-gradient(from 0deg, #2b1704, #b8860b, #ffd700, #b8860b, #2b1704, #b8860b, #ffd700, #2b1704);
-      box-shadow: 0 0 35px var(--amber-glow);
+      box-shadow: 0 0 32px var(--amber-glow);
       border: 1px solid rgba(245, 176, 65, 0.3);
     }
 
     .wordmark-row {
       display: inline-flex;
       align-items: baseline;
-      justify-content: center;
+      justify-content: flex-start;
       margin-bottom: 12px;
     }
     .part-bio {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 3.4rem;
+      font-size: 3.1rem;
       font-weight: 700;
       color: var(--heading);
       letter-spacing: -1px;
@@ -130,7 +144,7 @@
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-weight: 700;
-      font-size: 3.8rem;
+      font-size: 3.5rem;
       color: var(--heading);
       transform: translateY(-2px);
     }
@@ -138,70 +152,41 @@
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-weight: 700;
-      font-size: 3.8rem;
+      font-size: 3.5rem;
       color: var(--amber);
       transform: translateY(-2px);
     }
     .part-rum {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 3.4rem;
+      font-size: 3.1rem;
       font-weight: 800;
       color: var(--amber);
       letter-spacing: -1px;
     }
 
-    @media (max-width: 600px) {
-      .part-bio, .part-rum { font-size: 2.3rem; }
-      .part-in, .part-fo { font-size: 2.6rem; }
+    /* Official Backronym */
+    .official-acronym {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--heading);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .official-acronym .highlight {
+      color: var(--amber);
+      font-weight: 800;
+    }
+    .official-acronym .separator {
+      color: var(--text-dim);
+      opacity: 0.6;
     }
 
-    /* Single-line sleek Backronym */
-.official-acronym {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--heading);
-  margin-bottom: 12px;
-  white-space: nowrap;          /* Strictly prohibits line wrapping */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  max-width: 100%;
-}
-
-.official-acronym .highlight {
-  color: var(--amber);
-  font-weight: 800;
-}
-
-.official-acronym .separator {
-  color: var(--text-dim);
-  opacity: 0.5;
-  margin: 0 2px;
-}
-
-/* Fluid down-scaling so it never truncates on mobile screens */
-@media (max-width: 680px) {
-  .official-acronym {
-    font-size: 0.62rem;
-    letter-spacing: 0.5px;
-    gap: 3px;
-  }
-}
-@media (max-width: 420px) {
-  .official-acronym {
-    font-size: 0.52rem;
-    letter-spacing: 0.2px;
-  }
-}
-
     .tagline-lead {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       color: var(--text-dim);
-      max-width: 520px;
       line-height: 1.6;
       margin-bottom: 24px;
     }
@@ -210,11 +195,10 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      justify-content: center;
     }
     .pill {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text);
       background: var(--panel-bg);
       border: 1px solid var(--panel-border);
@@ -224,12 +208,17 @@
     }
     .pill:hover { border-color: var(--amber); color: var(--amber); }
 
-    /* --- Section 1: The Interactive Bench (Unique Tabbed Showcase) --- */
+    /* Right Main Panel (Interactive workbench + feed) */
+    .main-workspace {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
     .bench-module {
       background: var(--panel-bg);
       border: 1px solid var(--panel-border);
       border-radius: 10px;
-      margin: 40px 0;
       overflow: hidden;
     }
     .bench-nav {
@@ -239,9 +228,9 @@
       overflow-x: auto;
     }
     .bench-tab {
-      padding: 14px 20px;
+      padding: 12px 18px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       color: var(--text-dim);
       background: transparent;
       border: none;
@@ -258,20 +247,20 @@
       border-bottom: 2px solid var(--amber);
     }
     .bench-content {
-      padding: 28px;
+      padding: 24px;
     }
     .bench-pane { display: none; }
     .bench-pane.active { display: block; }
     .bench-pane h3 {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       color: var(--heading);
       margin-bottom: 10px;
       font-weight: 700;
     }
     .bench-pane p {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.6;
       margin-bottom: 16px;
     }
     .spec-stack {
@@ -281,7 +270,7 @@
     }
     .spec-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       background: var(--amber-dim);
       color: var(--amber);
       border: 1px solid rgba(245, 176, 65, 0.25);
@@ -289,21 +278,19 @@
       border-radius: 4px;
     }
 
-    /* --- Section 2: Terminal Run Log --- */
     .terminal-feed {
       background: var(--term-bg);
       border: 1px solid var(--panel-border);
       border-radius: 8px;
-      padding: 20px;
+      padding: 18px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.82rem;
-      margin-bottom: 40px;
+      font-size: 0.8rem;
     }
     .terminal-header {
       color: var(--text-dim);
       border-bottom: 1px solid var(--line);
       padding-bottom: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
     }
@@ -314,155 +301,185 @@
     .log-time { color: var(--amber); margin-right: 8px; }
     .log-tag { color: #58a6ff; margin-right: 8px; }
 
-    /* --- Footer --- */
+    /* Footer */
     footer {
+      margin-top: 40px;
       border-top: 1px solid var(--line);
-      padding-top: 24px;
+      padding-top: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--text-dim);
     }
     footer a { color: var(--amber); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
+
+    /* --- Mobile & Small Screen Media Query (Auto-reflow to vertical) --- */
+    @media (max-width: 900px) {
+      .landscape-layout {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .anchor-sidebar {
+        position: static;
+        align-items: center;
+        text-align: center;
+      }
+      .wordmark-row {
+        justify-content: center;
+      }
+      .part-bio, .part-rum { font-size: 2.4rem; }
+      .part-in, .part-fo { font-size: 2.7rem; }
+      .social-pills {
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body>
 
   <div class="frame">
     
-    <!-- Top Navigation Bar -->
+    <!-- Top Navigation -->
     <header class="masthead">
       <div class="masthead-id">
         <span>BIOINFORUM</span> // RESEARCH BENCH
       </div>
-      <button id="themeToggle" class="theme-toggle" aria-label="Toggle visual theme">
+      <!-- Icon-Only Theme Switcher -->
+      <button id="themeToggle" class="theme-toggle-icon" aria-label="Toggle theme">
         <span id="themeIcon">☀️</span>
-        <span id="themeText">Day</span>
       </button>
     </header>
 
-    <!-- Focal Branding Anchor -->
-    <section class="hero-center">
-      <div class="aperture-ring"></div>
+    <!-- Main Landscape Layout (Reflows to stack on mobile) -->
+    <div class="landscape-layout">
+      
+      <!-- Left Anchor Sidebar -->
+      <aside class="anchor-sidebar">
+        <div class="aperture-ring"></div>
 
-      <!-- Signature Tri-Font Wordmark -->
-      <div class="wordmark-row">
-        <span class="part-bio">bio</span>
-        <span class="part-in">in</span>
-        <span class="part-fo">fo</span>
-        <span class="part-rum">rum</span>
-      </div>
+        <div class="wordmark-row">
+          <span class="part-bio">bio</span>
+          <span class="part-in">in</span>
+          <span class="part-fo">fo</span>
+          <span class="part-rum">rum</span>
+        </div>
 
-      <!-- Official Backronym -->
         <div class="official-acronym">
-  <span><strong class="highlight">BIOin</strong>formatics</span>
-  <span><strong class="highlight">FO</strong>rum</span>
-  <span class="separator">for</span>
-  <span><strong class="highlight">R</strong>esearch,</span>
-  <span><strong class="highlight">U</strong>nderstanding</span>
-  <span class="separator">&amp;</span>
-  <span><strong class="highlight">M</strong>ethodologies</span>
+          <span><strong class="highlight">BIOin</strong>formatics</span>
+          <span><strong class="highlight">FO</strong>rum</span>
+          <span class="separator">for</span>
+          <span><strong class="highlight">R</strong>esearch,</span>
+          <span><strong class="highlight">U</strong>nderstanding</span>
+          <span class="separator">&amp;</span>
+          <span><strong class="highlight">M</strong>ethodologies</span>
         </div>
 
-      <p class="tagline-lead">
-        Translational genomics, pipeline architecture, and unvarnished lab realities.
-      </p>
+        <p class="tagline-lead">
+          Translational genomics, pipeline architecture, and unvarnished lab realities.
+        </p>
 
-      <div class="social-pills">
-        <a href="https://instagram.com/bioinforum" target="_blank" class="pill">Instagram</a>
-        <a href="https://github.com/bioinforum" target="_blank" class="pill">GitHub Org</a>
-        <a href="https://souravmohanty.com" target="_blank" class="pill">Curator (SSM)</a>
-      </div>
-    </section>
+        <div class="social-pills">
+          <a href="https://instagram.com/bioinforum" target="_blank" class="pill">Instagram</a>
+          <a href="https://github.com/bioinforum" target="_blank" class="pill">GitHub Org</a>
+          <a href="https://souravmohanty.com" target="_blank" class="pill">Curator (SSM)</a>
+        </div>
+      </aside>
 
-    <!-- Interactive Salon Bench (Custom Architecture) -->
-    <div class="bench-module">
-      <div class="bench-nav" role="tablist">
-        <button class="bench-tab active" onclick="openDesk(event, 'desk-workflows')">01 / Pipelines</button>
-        <button class="bench-tab" onclick="openDesk(event, 'desk-omics')">02 / Multi-Omics</button>
-        <button class="bench-tab" onclick="openDesk(event, 'desk-preprints')">03 / Preprints</button>
-        <button class="bench-tab" onclick="openDesk(event, 'desk-taproom')">04 / Taproom</button>
-      </div>
+      <!-- Right Main Workspace -->
+      <main class="main-workspace">
+        
+        <!-- Interactive Salon Desks -->
+        <div class="bench-module">
+          <div class="bench-nav" role="tablist">
+            <button class="bench-tab active" onclick="openDesk(event, 'desk-workflows')">01 / Pipelines</button>
+            <button class="bench-tab" onclick="openDesk(event, 'desk-omics')">02 / Multi-Omics</button>
+            <button class="bench-tab" onclick="openDesk(event, 'desk-preprints')">03 / Preprints</button>
+            <button class="bench-tab" onclick="openDesk(event, 'desk-taproom')">04 / Taproom</button>
+          </div>
 
-      <div class="bench-content">
-        <!-- Desk 1 -->
-        <div id="desk-workflows" class="bench-pane active">
-          <h3>Reproducible Workflow Architecture</h3>
-          <p>
-            Building end-to-end sequencing pipelines that do not collapse when moved between local workstations and Slurm HPC clusters. Focus on Nextflow modular DSL2, Snakemake orchestrations, and pinned Singularity container environments.
-          </p>
-          <div class="spec-stack">
-            <span class="spec-tag">Nextflow DSL2</span>
-            <span class="spec-tag">Docker / Singularity</span>
-            <span class="spec-tag">Slurm HPC</span>
-            <span class="spec-tag">Bash Utility</span>
+          <div class="bench-content">
+            <!-- Desk 1 -->
+            <div id="desk-workflows" class="bench-pane active">
+              <h3>Reproducible Workflow Architecture</h3>
+              <p>
+                Building end-to-end sequencing pipelines that stay stable across local environments and Slurm clusters. Focused on Nextflow DSL2, containerized Singularity layers, and automated execution.
+              </p>
+              <div class="spec-stack">
+                <span class="spec-tag">Nextflow DSL2</span>
+                <span class="spec-tag">Docker / Singularity</span>
+                <span class="spec-tag">Slurm HPC</span>
+                <span class="spec-tag">Bash Utility</span>
+              </div>
+            </div>
+
+            <!-- Desk 2 -->
+            <div id="desk-omics" class="bench-pane">
+              <h3>Expression &amp; Translational Discovery</h3>
+              <p>
+                Exploratory data analysis, bulk and single-cell RNA-seq quantification, differential expression modeling, batch-effect corrections, and clinical biomarker classification.
+              </p>
+              <div class="spec-stack">
+                <span class="spec-tag">R / Bioconductor</span>
+                <span class="spec-tag">DESeq2 / edgeR</span>
+                <span class="spec-tag">Seurat / Scanpy</span>
+                <span class="spec-tag">Statistical Modeling</span>
+              </div>
+            </div>
+
+            <!-- Desk 3 -->
+            <div id="desk-preprints" class="bench-pane">
+              <h3>Preprint Dissections &amp; Open Papers</h3>
+              <p>
+                Critical reviews of early-access computational biology preprints. Benchmarking tool claims, auditing novel statistical assumptions, and verifying reproducibility.
+              </p>
+              <div class="spec-stack">
+                <span class="spec-tag">bioRxiv Audits</span>
+                <span class="spec-tag">Methodology Reviews</span>
+                <span class="spec-tag">Open Data Validation</span>
+              </div>
+            </div>
+
+            <!-- Desk 4 -->
+            <div id="desk-taproom" class="bench-pane">
+              <h3>The Taproom Lounge</h3>
+              <p>
+                The informal layer of Bioinforum: late-night debugging sessions, weekend audio rooms, and candid conversations on lab culture, fellowships, and careers.
+              </p>
+              <div class="spec-stack">
+                <span class="spec-tag">Weekend Audio Lounges</span>
+                <span class="spec-tag">Pipeline Debugging</span>
+                <span class="spec-tag">Discord Coming Soon</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Desk 2 -->
-        <div id="desk-omics" class="bench-pane">
-          <h3>Expression &amp; Translational Discovery</h3>
-          <p>
-            Exploratory data analysis, differential expression quantification (bulk & single-cell RNA-seq), batch-effect corrections, and clinical biomarker classification models.
-          </p>
-          <div class="spec-stack">
-            <span class="spec-tag">R / Bioconductor</span>
-            <span class="spec-tag">DESeq2 / edgeR</span>
-            <span class="spec-tag">Seurat / Scanpy</span>
-            <span class="spec-tag">Statistical Modeling</span>
+        <!-- Terminal Status Feed -->
+        <div class="terminal-feed">
+          <div class="terminal-header">
+            <span>RUN_STATUS: ACTIVE</span>
+            <span>SESSION: 2026.09</span>
+          </div>
+          <div class="log-line">
+            <span class="log-time">[STATUS]</span>
+            <span class="log-tag">DNS_INIT:</span> bioinforum.org staging active on GitHub Pages.
+          </div>
+          <div class="log-line">
+            <span class="log-time">[PIPELINE]</span>
+            <span class="log-tag">TRANSCRIPTOMICS:</span> Documenting normalization strategies for single-cell data.
+          </div>
+          <div class="log-line">
+            <span class="log-time">[LOUNGE]</span>
+            <span class="log-tag">COMMUNITY:</span> Discord server setup ongoing; cohort onboarding prepared.
           </div>
         </div>
 
-        <!-- Desk 3 -->
-        <div id="desk-preprints" class="bench-pane">
-          <h3>Preprint Dissections &amp; Open Papers</h3>
-          <p>
-            Critical examinations of early-access computational biology preprints. Benchmarking claims, reviewing novel statistical assumptions, and auditing reproducibility before papers clear peer review.
-          </p>
-          <div class="spec-stack">
-            <span class="spec-tag">bioRxiv Audits</span>
-            <span class="spec-tag">Methodology Reviews</span>
-            <span class="spec-tag">Open Data Validation</span>
-          </div>
-        </div>
+      </main>
 
-        <!-- Desk 4 -->
-        <div id="desk-taproom" class="bench-pane">
-          <h3>The Taproom Lounge</h3>
-          <p>
-            The unvarnished, social layer of Bioinforum. Late-night debugging calls, casual weekend voice rooms, and honest conversations on careers, fellowships, and lab culture over drinks.
-          </p>
-          <div class="spec-stack">
-            <span class="spec-tag">Weekend Audio Lounges</span>
-            <span class="spec-tag">Pipeline Debugging Sessions</span>
-            <span class="spec-tag">Discord Coming Soon</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Active Terminal Status Log -->
-    <div class="terminal-feed">
-      <div class="terminal-header">
-        <span>RUN_STATUS: ACTIVE</span>
-        <span>SESSION: 2026.09</span>
-      </div>
-      <div class="log-line">
-        <span class="log-time">[STATUS]</span>
-        <span class="log-tag">DNS_INIT:</span> bioinforum.org staging active on GitHub Pages.
-      </div>
-      <div class="log-line">
-        <span class="log-time">[PIPELINE]</span>
-        <span class="log-tag">TRANSCRIPTOMICS:</span> Documenting single-cell workflow normalization strategies.
-      </div>
-      <div class="log-line">
-        <span class="log-time">[LOUNGE]</span>
-        <span class="log-tag">COMMUNITY:</span> Discord architecture structured; onboarding cohort in preparation.
-      </div>
     </div>
 
     <!-- Footer -->
@@ -478,7 +495,7 @@
 
   </div>
 
-  <!-- Interactive Desk Switcher & Theme Storage -->
+  <!-- Scripts -->
   <script>
     // Tabbed Bench Desk Switcher
     function openDesk(evt, deskId) {
@@ -492,10 +509,9 @@
       evt.currentTarget.classList.add('active');
     }
 
-    // Day / Night Theme Controller
+    // Icon-Only Day/Night Toggle Controller
     const toggleBtn = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
-    const themeText = document.getElementById('themeText');
     const root = document.documentElement;
 
     const savedTheme = localStorage.getItem('bioinforum-theme') || 'dark';
@@ -510,13 +526,7 @@
 
     function setTheme(theme) {
       root.setAttribute('data-theme', theme);
-      if (theme === 'light') {
-        themeIcon.textContent = '🌙';
-        themeText.textContent = 'Night';
-      } else {
-        themeIcon.textContent = '☀️';
-        themeText.textContent = 'Day';
-      }
+      themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
     }
   </script>
 </body>
